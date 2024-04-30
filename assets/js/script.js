@@ -1,4 +1,8 @@
 import * as mod from "./functions.js";
 
-submit.addEventListener("click", mod.submitTask)
+document.addEventListener('DOMContentLoaded', function() {
+    mod.updateLocalStorage();
+    mod.displayTasksFromLocalStorage();
+    submit.addEventListener("click", mod.submitTask)
+});
 

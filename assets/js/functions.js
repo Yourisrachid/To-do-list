@@ -1,43 +1,77 @@
-export const tasks = []
+export let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 export const submit = document.getElementById("submit")
 export const taskInput = document.getElementById("task")
-export const ul = document.getElementsByName("ul")
+export const ul = document.getElementById("taskList");
 
-export function submitTask () {
+export function updateLocalStorage() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+export function submitTask() {
     const taskValue = taskInput.value.trim();
     if (taskValue !== "") {
-        const currentTime = getElapsedTime();
-        tasks.push(taskValue)
-        taskInput.value = ""
-        displayTable(taskValue);
+        const newTask = { task: taskValue, time: getCurrentDateTime(), done: false };
+        tasks.push(newTask);
+        taskInput.value = "";
+        displayTable(newTask);
+        updateLocalStorage();
     } else {
-        alert("No task to submit !")
+        alert("No task to submit !");
     }
 }
 
+export function updateCheckboxState(index, isChecked) {
+    tasks[index].done = isChecked;
+    updateLocalStorage();
+}
 
-export function displayTable(taskValue) {
+export function displayTable(taskitem) {
 
-    const li = document.createElement('li')
-    const ul = document.querySelector('ul')
-    
-    li.className="task"
+    const li = document.createElement('li');
+    li.className = "task";
 
     const taskText = document.createElement('p');
-    taskText.textContent = taskValue;
+    taskText.textContent = taskitem.task;
     li.appendChild(taskText);
 
     const timeSpan = document.createElement('span');
-    timeSpan.textContent = getCurrentDateTime();
+    timeSpan.textContent = taskitem.time;
     li.appendChild(timeSpan);
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    checkbox.checked = taskitem.done;
+    checkbox.addEventListener('change', function() {
+        taskitem.done = this.checked;
+        updateLocalStorage();
+        if (this.checked) {
+            li.style.backgroundColor = 'rgba(0, 255, 0, 0.2)';
+            li
+        } else {
+            li.style.backgroundColor = '';
+        }
+    });
+
+    const removeButton = document.createElement('img');
+    removeButton.classList.add('bin')
+    removeButton.src = 'assets/img/bin.svg';
+    removeButton.addEventListener('click', function() {
+        ul.removeChild(li);
+        tasks = tasks.filter(task => task !== taskitem);
+        updateLocalStorage();
+    });
+
+
     li.appendChild(checkbox);
+    li.appendChild(removeButton);
+    ul.appendChild(li);
+}
 
-    ul.appendChild(li)
 
-
+export function displayTasksFromLocalStorage() {
+    tasks.forEach(task => {
+        displayTable(task);
+    });
 }
 
 const _initTime = Date.now()
@@ -103,3 +137,4 @@ if (darkMode === 'active') {
 darkModeToggle.addEventListener('change', () => {
     toggleDarkMode();
 });
+
