@@ -87,9 +87,6 @@ body footer {
   .task img {
     margin-top: 0;
   }
-  header {
-    height: 350px;
-  }
   header img {
     padding: 5%;
     width: 15%;
@@ -97,6 +94,7 @@ body footer {
   header h1 {
     margin-left: 28%;
     margin-top: 10%;
+    top: -10%;
   }
   main ul li input {
     width: 2%;

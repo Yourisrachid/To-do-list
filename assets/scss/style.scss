@@ -137,8 +137,6 @@ body {
     }
 
     header {
-        height: 350px;
-
         img {
             padding: 5%;
             width: 15%;
@@ -146,7 +144,8 @@ body {
 
         h1 {
             margin-left: 28%;
-            margin-top: 10%
+            margin-top: 10%;
+            top: -10%;
         }
     }
 
