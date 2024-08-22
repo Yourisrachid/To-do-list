@@ -137,13 +137,16 @@ body {
     }
 
     header {
+
+        overflow: hidden;
+
         img {
             padding: 5%;
             width: 15%;
         }
 
         h1 {
-            margin-left: 28%;
+            margin-left: 32%;
             margin-top: 10%;
             top: -10%;
         }

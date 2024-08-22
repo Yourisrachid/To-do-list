@@ -87,12 +87,15 @@ body footer {
   .task img {
     margin-top: 0;
   }
+  header {
+    overflow: hidden;
+  }
   header img {
     padding: 5%;
     width: 15%;
   }
   header h1 {
-    margin-left: 28%;
+    margin-left: 32%;
     margin-top: 10%;
     top: -10%;
   }
